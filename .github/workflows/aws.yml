@@ -62,7 +62,7 @@ jobs:
           sudo docker rm minio_container || true
           
           # Run new container with MinIO console enabled
-          nohup sudo docker run -d -p 9000:9000 -p 29001:9001 \
+          nohup sudo docker run -d -p 9000:9000 -p 9001:9001 \
             -e MINIO_ROOT_USER=ohmyservice \
             -e MINIO_ROOT_PASSWORD=password \
             -e MINIO_CONSOLE_PORT=9001 \
