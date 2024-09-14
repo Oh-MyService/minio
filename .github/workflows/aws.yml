@@ -52,8 +52,8 @@ jobs:
       env:
         MINIO_IMAGE: ${{ steps.build-fastapi-image.outputs.minio_image }}
       run: |
-        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -t -o StrictHostKeyChecking=no $SSH_USERNAME@$LIGHTSAIL_INSTANCE_IP << EOF
-          MINIO_IMAGE=${MINIO_IMAGE}
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -tt -o StrictHostKeyChecking=no $SSH_USERNAME@$LIGHTSAIL_INSTANCE_IP << EOF
+          MINIO_IMAGE=\${MINIO_IMAGE}
           
           # Pull the images
           sudo docker pull \$MINIO_IMAGE
