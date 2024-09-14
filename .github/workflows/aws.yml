@@ -62,14 +62,14 @@ jobs:
           sudo docker rm minio_container || true
           
           # Run new container with MinIO console enabled
-          nohup sudo docker run -d -p 9000:9000 -p 9001:9001 \
+          sudo docker run -d -p 9000:9000 -p 9001:9001 \
             -e MINIO_ROOT_USER=ohmyservice \
             -e MINIO_ROOT_PASSWORD=password \
             #-e MINIO_CONSOLE_PORT=9001 \
             #-e MINIO_CONSOLE_USER=admin \
             #-e MINIO_CONSOLE_PASSWORD=adminpassword \
             -v /oms/minio:/data \
-            --name minio_container "$MINIO_IMAGE"  > /dev/null 2>&1 &
+            --name minio_container "$MINIO_IMAGE"
 
           # Cleanly exit the SSH session
           exit 0
