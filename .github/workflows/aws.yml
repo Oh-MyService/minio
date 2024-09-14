@@ -63,5 +63,5 @@ jobs:
           sudo docker rm minio_container || true
           
           # Run new container
-          sudo docker run -d -p 9000:9000 -e MINIO_ROOT_USER=ohmyservice -e MINIO_ROOT_PASSWORD=password -v /oms/minio:/data --name minio_container \$MINIO_IMAGE server /data
+          sudo docker run -d -p 9000:9000 -e MINIO_ROOT_USER=ohmyservice -e MINIO_ROOT_PASSWORD=password -v /oms/minio:/data --name minio_container \\$MINIO_IMAGE
         EOF
