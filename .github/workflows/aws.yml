@@ -66,8 +66,8 @@ jobs:
             -e MINIO_ROOT_USER=ohmyservice \
             -e MINIO_ROOT_PASSWORD=password \
             -e MINIO_CONSOLE_PORT=9001 \
-            -e MINIO_CONSOLE_USER=admin \
-            -e MINIO_CONSOLE_PASSWORD=adminpassword \
+            #-e MINIO_CONSOLE_USER=admin \
+            #-e MINIO_CONSOLE_PASSWORD=adminpassword \
             -v /oms/minio:/data \
             --name minio_container "$MINIO_IMAGE" > /dev/null 2>&1 &
 
