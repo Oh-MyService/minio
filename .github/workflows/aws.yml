@@ -70,7 +70,4 @@ jobs:
             #-e MINIO_CONSOLE_PASSWORD=adminpassword \
             -v /oms/minio:/data \
             --name minio_container "$MINIO_IMAGE"
-
-          # Cleanly exit the SSH session
-          exit 0
         EOF
