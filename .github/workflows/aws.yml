@@ -43,25 +43,25 @@ jobs:
       run: |
         docker build --no-cache -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
         docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-        echo "ai_image=$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        echo "minio_image=$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Install SSH and sshpass
       run: sudo apt-get install -y openssh-client sshpass
 
     - name: Deploy to Amazon Lightsail using sshpass
       env:
-        AI_IMAGE: ${{ steps.build-fastapi-image.outputs.ai_image }}
+        MINIO_IMAGE: ${{ steps.build-fastapi-image.outputs.minio_image }}
       run: |
         sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$LIGHTSAIL_INSTANCE_IP << EOF
-          AI_IMAGE=${AI_IMAGE}
+          MINIO_IMAGE=${MINIO_IMAGE}
           
           # Pull the images
-          sudo docker pull \\$AI_IMAGE
+          sudo docker pull \\$MINIO_IMAGE
           
           # Stop and remove existing containers
           sudo docker stop minio_container || true
           sudo docker rm minio_container || true
           
           # Run new container
-          sudo docker run -d --privileged --shm-size=32g --ulimit memlock=-1 --ulimit stack=67108864 --gpus all --name ai_app -p 27272:8000 \\$AI_IMAGE
+          sudo docker run -d -p 9000:9000 -e MINIO_ROOT_USER=ohmyservice -e MINIO_ROOT_PASSWORD=password -v /oms/minio:/data --name minio_container \\$MINIO_IMAGE server /data
         EOF
