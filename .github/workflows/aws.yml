@@ -69,7 +69,7 @@ jobs:
             #-e MINIO_CONSOLE_USER=admin \
             #-e MINIO_CONSOLE_PASSWORD=adminpassword \
             -v /oms/minio:/data \
-            --name minio_container "$MINIO_IMAGE"  --console-address ":9001"> /dev/null 2>&1 &
+            --name minio_container "$MINIO_IMAGE"  > /dev/null 2>&1 &
 
           # Cleanly exit the SSH session
           exit 0
