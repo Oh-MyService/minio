@@ -34,7 +34,7 @@ jobs:
           sudo docker rm minio_container || true
           
           # Run new container with MinIO console enabled
-          docker run -d --name minio -v /oms/minio:/data \
+          docker run -d --name minio_container -v /oms/minio:/data \
           --network host \
           -e "MINIO_ROOT_USER=minio" \
           -e "MINIO_ROOT_PASSWORD=minio1234" \
