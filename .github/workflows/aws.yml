@@ -38,9 +38,10 @@ jobs:
             -v /oms/minio:/data \
             #-v /var/log/minio/minio.log:/log/minio.log \
             -p 9000:9000 \
+            -p 9001:9001 \
             -e "MINIO_ACCESS_KEY=minio" \
-            -e "MINIO_SECRET_KEY=melovethanos" \
+            -e "MINIO_SECRET_KEY=minio" \
             #-e "MINIO_HTTP_TRACE=/log/minio.log" \
-            minio/minio:RELEASE.2019-01-31T08-31-19Z \
-            server --anonymous --json /data
+            minio/minio \
+            server /data
         EOF
