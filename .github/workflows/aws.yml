@@ -27,7 +27,7 @@ jobs:
         MINIO_IMAGE: ${{ steps.build-minio-image.outputs.minio_image }}
       run: |
         echo "Deploying image: $MINIO_IMAGE"
-        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -tt -o StrictHostKeyChecking=no $SSH_USERNAME@$LIGHTSAIL_INSTANCE_IP << EOF
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$LIGHTSAIL_INSTANCE_IP << EOF
           
           # Stop and remove existing containers
           sudo docker stop minio_container || true
